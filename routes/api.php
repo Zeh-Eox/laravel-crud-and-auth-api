@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('posts', [PostController::class, "index"]);
+
+Route::get('users', [UserController::class, 'index']);
+Route::post('users/register', [UserController::class, "register"]);
+Route::post('users/login', [UserController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function() 
+{
+    Route::post('posts/create', [PostController::class, "store"]);
+    Route::put('posts/edit/{post}', [PostController::class, 'update']);
+    Route::delete('posts/{post}', [PostController::class, 'destroy']);
+
+    Route::get('/user', function(Request $request) 
+    {
+        return $request->user();
+    });
 });
-
-
-Route::get('posts', [PostController::class, "index"]); // Recuperer tous les postes
-Route::post('posts/create', [PostController::class, "store"]); // Creer un nouveau poste
-Route::put('posts/edit/{post}', [PostController::class, 'update']); // Modifier un poste
-Route::delete('posts/{post}', [PostController::class, 'destroy']); // Supprimer un poste
-

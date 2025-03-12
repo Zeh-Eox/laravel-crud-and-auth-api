@@ -49,6 +49,7 @@ class PostController extends Controller
 
             $post->title = $request->title;
             $post->description = $request->description;
+            $post->user_id = auth()->user()->id;
 
             $post->save();
 
@@ -69,7 +70,17 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->description = $request->description;
     
-            $post->save();
+            if($post->user_id === auth()->user()->id)
+            {
+                $post->save();
+            } else
+            {
+                return response()->json([
+                    'status_code' => 422,
+                    'status_message' => 'Auteur du poste invalide',
+                    'data' => $post
+                ]);
+            }
     
             return response()->json([
                 'status_code' => 200,
@@ -85,7 +96,17 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         try {
-            $post->delete();
+            if($post->user_id === auth()->user()->id)
+            {
+                $post->delete();
+            } else 
+            {
+                return response()->json([
+                    'status_code' => 422,
+                    'status_message' => 'Auteur du poste invalide',
+                    'data' => $post
+                ]);
+            }
 
             return response()->json([
                 'status_code' => 200,
