@@ -1,7 +1,7 @@
-###### Laravel simple CRUD API with Authentification
+# Laravel simple CRUD API with Authentification
 
 
-##### Requirements
+## Requirements
 
 - Laravel
 - Composer
@@ -9,22 +9,22 @@
 - XAMPP
 
 
-#### CRUD Opérations
+## CRUD Opérations
 
-## GET HTTP Method
+### GET HTTP Method
 - Get all Posts : api/posts
 - Search in Posts : api/posts?search=word
 - Paginate in posts : api/posts?page=value
 
-## POST HTTP Method
+### POST HTTP Method
 - Create new Post : api/posts/create
 
-## PUT HTTP Method
+### PUT HTTP Method
 - Update one Post : api/posts/edit/{post}
 
-## DELETE HTTP Method
+### DELETE HTTP Method
 - Delete one Post : api/posts/{post}
 
 
-#### Authentification
+## Authentification
                 
